@@ -7,6 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-50.times do
+500.times do
   FactoryBot.create(:book)
 end

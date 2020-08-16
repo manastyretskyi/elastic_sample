@@ -18,6 +18,11 @@ gem "react_on_rails"
 
 gem 'bootsnap', '>= 1.4.2', require: false
 
+gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: 'master'
+gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: 'master'
+gem 'elasticsearch-persistence', github: 'elastic/elasticsearch-rails', branch: 'master'
+
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails'
