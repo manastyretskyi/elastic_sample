@@ -2,10 +2,18 @@
   "name": "elastic_sample",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
+    "babel-loader": "^8.1.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-on-rails": "12.0.1",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
