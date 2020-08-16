@@ -3,5 +3,7 @@
 class HomeController < ApplicationController
   layout "react"
 
-  def index; end
+  def index
+    @search = params[:search]
+  end
 end
