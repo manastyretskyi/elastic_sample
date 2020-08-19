@@ -1,18 +1,24 @@
 require 'elasticsearch/model'
 
 class Book < ApplicationRecord
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  include Searchable
 
-  after_commit on: [:create] do
-    __elasticsearch__.index_document
+  settings index: { number_of_shards: 1 } do
+    mappings dynamic: false do
+      indexes :id, type: :integer
+      indexes :title, type: :text
+
+      indexes :authors, type: 'nested' do
+        indexes :id, type: :integer
+        indexes :name, type: :text
+      end
+    end
   end
 
-  after_commit on: [:update] do
-      __elasticsearch__.update_document
-  end
+  has_many :authors_books_relationship, dependent: :destroy
+  has_many :authors, through: :authors_books_relationship
 
-  after_commit on: [:destroy] do
-    __elasticsearch__.delete_document
+  def as_indexed_json(options = {})
+    self.as_json(include: { authors: { only: [:id, :name] } })
   end
 end

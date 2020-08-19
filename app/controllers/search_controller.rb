@@ -1,11 +1,6 @@
 class SearchController < ApplicationController
   def search
-    @results =  Book.where(id: Book.search(query: {
-                                             multi_match: {
-                                               query: params[:search],
-                                               fuzziness: "AUTO",
-                                               fields: [:title, :genre]
-                                              },
-                                            }).results.map(&:_id)).reverse
+    @results = Elasticsearch::Model.search(params[:term], [Book, Author]).results.to_a.map(&:as_json)
+
   end
 end
