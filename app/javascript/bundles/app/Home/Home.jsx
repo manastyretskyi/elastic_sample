@@ -79,7 +79,6 @@ const Home = (props) => {
           location.href = `http://0.0.0.0:3000/books/${suggestion.id}`;
         }}
       />
-      {suggestions.map(renderSuggestion)}
     </div>
   );
 };

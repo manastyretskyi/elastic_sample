@@ -1,16 +1,14 @@
-require 'elasticsearch/model'
-
 class Book < ApplicationRecord
   include Searchable
 
-  settings index: { number_of_shards: 1 } do
+  settings SEARCH_SETTINGS do
     mappings dynamic: false do
       indexes :id, type: :integer
-      indexes :title, type: :text
+      indexes :title, type: :text, analyzer: 'ngram_analizer'
 
       indexes :authors, type: 'nested' do
         indexes :id, type: :integer
-        indexes :name, type: :text
+        indexes :name, type: :text, analyzer: 'ngram_analizer'
       end
     end
   end

@@ -5,9 +5,11 @@ json.array! @results do |hit|
     book = hit['_source']
     json.type 'book'
     json.title book['title']
-    json.authors json.array book['authors'] do |author|
-      json.id author['id']
-      json.name author['name']
+    json.authors do
+      json.array! book['authors'] do |author|
+        json.id author['id']
+        json.name author['name']
+      end
     end
   when 'authors'
     author = hit['_source']
