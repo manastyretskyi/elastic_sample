@@ -16,6 +16,15 @@ GIT
     elasticsearch-rails (7.1.0)
 
 GIT
+  remote: https://github.com/elasticsearch/elasticsearch-ruby.git
+  revision: b106eccdba27a1416f16ca1cde44e3219ee2dd05
+  branch: master
+  specs:
+    elasticsearch-extensions (0.0.31)
+      ansi
+      elasticsearch
+
+GIT
   remote: https://github.com/faker-ruby/faker.git
   revision: 35ec5ed4e8a7f7477a6583a8de9a70256d4192a2
   branch: master
@@ -83,6 +92,7 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    ansi (1.5.0)
     bindex (0.8.1)
     bootsnap (1.4.8)
       msgpack (~> 1.0)
@@ -92,13 +102,17 @@ GEM
     connection_pool (2.2.3)
     crass (1.0.6)
     csv (3.1.7)
+    database_cleaner (1.8.5)
+    database_cleaner-active_record (1.8.0)
+      activerecord
+      database_cleaner (~> 1.8.0)
     diff-lcs (1.4.4)
-    elasticsearch (7.8.1)
-      elasticsearch-api (= 7.8.1)
-      elasticsearch-transport (= 7.8.1)
-    elasticsearch-api (7.8.1)
+    elasticsearch (7.9.0)
+      elasticsearch-api (= 7.9.0)
+      elasticsearch-transport (= 7.9.0)
+    elasticsearch-api (7.9.0)
       multi_json
-    elasticsearch-transport (7.8.1)
+    elasticsearch-transport (7.9.0)
       faraday (~> 1)
       multi_json
     erubi (1.9.0)
@@ -256,6 +270,8 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   csv
+  database_cleaner-active_record
+  elasticsearch-extensions!
   elasticsearch-model!
   elasticsearch-persistence!
   elasticsearch-rails!

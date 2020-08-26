@@ -62,6 +62,10 @@ body {
 .react-autosuggest__suggestion {
   cursor: pointer;
   padding: 10px 20px;
+
+  em {
+    color: yellowgreen;
+  }
 }
 
 .react-autosuggest__suggestion--highlighted {

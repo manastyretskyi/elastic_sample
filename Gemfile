@@ -28,6 +28,11 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
   gem 'rspec-rails'
+  gem 'elasticsearch-extensions', github: 'elasticsearch/elasticsearch-ruby', branch: 'master'
+end
+
+group :test do
+  gem 'database_cleaner-active_record'
 end
 
 group :development do

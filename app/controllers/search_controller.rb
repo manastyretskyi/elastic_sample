@@ -5,7 +5,10 @@ class SearchController < ApplicationController
         should: [
           {
             match: {
-              title: params[:term]
+              title: {
+                query: params[:term],
+                operator: "and"
+              }
             }
           },
           {
@@ -13,13 +16,28 @@ class SearchController < ApplicationController
               path: :authors,
               query: {
                 match: {
-                  "authors.name": params[:term]
+                  "authors.name": {
+                    query: params[:term],
+                    operator: "and"
+                  } 
+                }
+              },
+              "inner_hits": { 
+                "highlight": {
+                  "fields": {
+                    "authors.name": {}
+                  }
                 }
               }
             }
           }
         ]
       }
-    }).results.to_a.map(&:as_json)
+    },
+    highlight: {
+      fields: {
+        title: { type: "unified" }
+      }
+    })
   end
 end

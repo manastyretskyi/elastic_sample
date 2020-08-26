@@ -1,1 +1,1 @@
-Elasticsearch::Model.client = Elasticsearch::Client.new log: true, host: 'http://0.0.0.0:9200'
+Elasticsearch::Model.client = Elasticsearch::Client.new(log: true, host: Rails.configuration.elasticsearch.fetch(:url) {'http://localhost:9200'})

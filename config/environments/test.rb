@@ -46,4 +46,10 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
+
+  config.elasticsearch = {
+    url: 'http://localhost:9250',
+    host: 'http://localhost',
+    port: '9250'
+  }
 end

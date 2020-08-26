@@ -10,15 +10,22 @@ import BookSuggestion from "./components/BookSuggestion";
 import AuthorSuggestion from "./components/AuthorSuggestion";
 
 function getSuggestionValue(suggestion) {
-  return suggestion.title;
+  switch (suggestion.type) {
+    case "book":
+      return suggestion.title;
+    case "author":
+      return suggestion.name;
+  }
 }
 
 function renderSuggestion(suggestion) {
   switch (suggestion.type) {
     case "book":
-      return <BookSuggestion key={suggestion.id} {...suggestion} />;
+      return <BookSuggestion key={`book:${suggestion.id}`} {...suggestion} />;
     case "author":
-      return <AuthorSuggestion key={suggestion.id} {...suggestion} />;
+      return (
+        <AuthorSuggestion key={`author:${suggestion.id}`} {...suggestion} />
+      );
   }
 }
 
