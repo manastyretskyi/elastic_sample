@@ -1,9 +1,13 @@
 .loading {
-  background-color: gray;
+  .react-autosuggest__input {
+    background-color: rgba(0,0,0,.1);
+  }
 }
 
 .error {
-  background-color: red;
+  .react-autosuggest__input {
+    background-color: rgba(255,0,0,.5);
+  }
 }
 
 body {

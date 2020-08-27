@@ -14,12 +14,10 @@ const BookSuggestion = ({ title, authors, authors_hits, highlights }) => {
       <span
         dangerouslySetInnerHTML={{
           __html: _.uniqBy(_.concat(authors_hits, authors), "id")
-            .map((author) => {
-              console.log(author);
-              return author.highlights && author.highlights["authors.name"]
+            .map((author) =>author.highlights && author.highlights["authors.name"]
                 ? author.highlights["authors.name"]
-                : author.name;
-            })
+                : author.name
+            )
             .join(", "),
         }}
       ></span>

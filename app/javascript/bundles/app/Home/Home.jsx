@@ -34,37 +34,35 @@ const Home = (props) => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [shouldReload, setShouldReload] = useState(false);
   const token = useCSRFToken();
 
-  const history = useEffect(() => {
-    if (!shouldReload) return;
+  useEffect(() => {
     setSuggestions([]);
+    setError(false);
     if (search === "") return;
 
     setLoading(true);
-    setError(false);
-    setShouldReload(false);
 
-    axios
-      .post(
-        "/search",
-        { term: search },
-        {
-          headers: {
-            "X-CSRF-TOKEN": token,
-            Accept: "application/json",
-          },
-        }
-      )
-      .then(({ data }) => setSuggestions(data))
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
-  }, [search]);
+    setTimeout(() => 
+      axios
+        .post(
+          "/search",
+          { term: search },
+          {
+            headers: {
+              "X-CSRF-TOKEN": token,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then(({ data }) => setSuggestions(data))
+        .catch(() => setError(true))
+        .finally(() => setLoading(false)),
+      500)
+    }, [search]);
 
   let onChange = (event, { newValue: term, method }) => {
-    setSearch(term);
-    if (method === "type") setShouldReload(true);
+    if (method === "type") setSearch(term);
   };
 
   const inputProps = {
@@ -74,7 +72,7 @@ const Home = (props) => {
   };
 
   return (
-    <div>
+    <div className={classNames({loading, error})}>
       <Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={({ value }) => setSearch(value)}
