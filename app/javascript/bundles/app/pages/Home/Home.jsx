@@ -42,7 +42,7 @@ const Home = (props) => {
       () =>
         axios
           .post(
-            "/search",
+            "/api/search",
             { term: search },
             {
               headers: {

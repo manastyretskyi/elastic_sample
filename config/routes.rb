@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  post 'search' => 'search#search'
+  
+  namespace :api do
+    resources :books, only: :show
+    resources :authors, only: :show
+
+    post 'search' => 'search#search'
+  end
   
   root to: 'home#index'
   match '*path' => 'home#index', via: :get
