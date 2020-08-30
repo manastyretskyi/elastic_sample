@@ -8,7 +8,6 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'sass-rails', '>= 6'
 gem 'webpacker'
-gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem "react_on_rails"
 # gem 'redis', '~> 4.0'
@@ -26,7 +25,7 @@ gem 'elasticsearch-persistence', github: 'elastic/elasticsearch-rails', branch: 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails'
-  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+  gem 'faker', github: 'faker-ruby/faker', branch: 'master'
   gem 'rspec-rails'
   gem 'elasticsearch-extensions', github: 'elasticsearch/elasticsearch-ruby', branch: 'master'
 end
