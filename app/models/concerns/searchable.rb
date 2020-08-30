@@ -1,6 +1,8 @@
 require "elasticsearch/model"
+
 module Searchable
   extend ActiveSupport::Concern
+
   included do |base|
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
@@ -16,8 +18,7 @@ module Searchable
               'my_ascii_folding',
               'classic',
               'kstem',
-              'word_delimiter',
-              'my_english_stop'
+              'word_delimiter'
             ]
           },
           ngram_analizer_names: {
@@ -30,9 +31,9 @@ module Searchable
         },
         tokenizer: {
           ngram_tokenizer: {
-            type: 'edge_ngram',
-            min_gram: 1,
-            max_gram: 10,
+            type:        'edge_ngram',
+            min_gram:    1,
+            max_gram:    10,
             token_chars: ['letter']
           }
         },
@@ -40,10 +41,6 @@ module Searchable
           my_ascii_folding: {
             type: "asciifolding",
             preserve_original: true
-          },
-          my_english_stop: { 
-            type: "stop",
-            stopwords: "_english_"
           }
         }
       }
