@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import Autosuggest from "react-autosuggest";
 import { useHistory } from "react-router-dom";
 
-import useCSRFToken from "../../hooks/useCSRFToken";
 import BookSuggestion from "./components/BookSuggestion";
 import AuthorSuggestion from "./components/AuthorSuggestion";
 
 import { getSuggestionPath, getSuggestionValue } from "../../utils";
+import { getSuggestions } from "../../api";
 
 import "./Home.scss";
 
@@ -28,7 +27,6 @@ const Home = (props) => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const token = useCSRFToken();
   const history = useHistory();
 
   useEffect(() => {
@@ -40,17 +38,7 @@ const Home = (props) => {
 
     setTimeout(
       () =>
-        axios
-          .post(
-            "/api/search",
-            { term: search },
-            {
-              headers: {
-                "X-CSRF-TOKEN": token,
-                Accept: "application/json",
-              },
-            }
-          )
+        getSuggestions(search)
           .then(({ data }) => setSuggestions(data))
           .catch(() => setError(true))
           .finally(() => setLoading(false)),
