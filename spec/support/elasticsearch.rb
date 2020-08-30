@@ -10,7 +10,7 @@ cluster = Elasticsearch::Extensions::Test::Cluster::Cluster.new(
 RSpec.configure do |config|
   config.before :all, elasticsearch: true do
     cluster.start unless cluster.running?
-    ActiveRecord::Base.descendants.each do |model|
+    SearchService::Constants::MODELS_TO_SEARCH.each do |model|
       if model.respond_to?(:__elasticsearch__)
         begin
           model.__elasticsearch__.create_index!
@@ -24,7 +24,7 @@ RSpec.configure do |config|
   end
   
   config.after :suite do
-    ActiveRecord::Base.descendants.each do |model|
+    SearchService::Constants::MODELS_TO_SEARCH.each do |model|
       if model.respond_to?(:__elasticsearch__)
         begin
           model.__elasticsearch__.delete_index!

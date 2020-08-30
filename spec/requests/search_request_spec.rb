@@ -2,8 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "Searches", type: :request do
   describe '#search', elasticsearch: true do
-    let!(:book) { create(:book, title: 'book to return', authors: [create(:author)]) }
+    let!(:book) { create(:book, title: 'book to return') }
 
+    before { import_records }
+    after { clear_indices }
+    
     it 'returns correct results' do
       headers = { "ACCEPT" => "application/json" }
       post '/search.json', params: { term: 'to return' }
