@@ -7,6 +7,10 @@ module SearchService
     end
 
     def search; end
+
+    def query
+      term
+    end
     
     class << self
       def search(term)

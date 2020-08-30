@@ -4,12 +4,7 @@ class Author < ApplicationRecord
   settings SEARCH_SETTINGS do
     mappings dynamic: false do
       indexes :id, type: :integer
-      indexes :name, type: :text, analyzer: 'ngram_analizer'
-
-      indexes :books, type: 'nested' do
-        indexes :id, type: :integer
-        indexes :title, type: :text
-      end
+      indexes :name, type: :text, analyzer: 'ngram_analizer_names'
     end
   end
 

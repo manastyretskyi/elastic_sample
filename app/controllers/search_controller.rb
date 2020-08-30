@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
   def search
-    @results = SearchService::SuggestBook.search(params[:term])
+    @results = SearchService::Suggest.search(params[:term])
   end
 end

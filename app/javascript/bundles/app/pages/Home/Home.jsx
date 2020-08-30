@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import classNames from "classnames";
 import Autosuggest from "react-autosuggest";
+import { useHistory } from "react-router-dom";
 
-import useCSRFToken from "../hooks/useCSRFToken";
-
-import "./Home.scss";
+import useCSRFToken from "../../hooks/useCSRFToken";
 import BookSuggestion from "./components/BookSuggestion";
 import AuthorSuggestion from "./components/AuthorSuggestion";
 
-function getSuggestionValue(suggestion) {
-  switch (suggestion.type) {
-    case "book":
-      return suggestion.title;
-    case "author":
-      return suggestion.name;
-  }
-}
+import { getSuggestionPath, getSuggestionValue } from "../../utils";
+
+import "./Home.scss";
 
 function renderSuggestion(suggestion) {
   switch (suggestion.type) {
@@ -35,6 +29,7 @@ const Home = (props) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const token = useCSRFToken();
+  const history = useHistory();
 
   useEffect(() => {
     setSuggestions([]);
@@ -43,23 +38,25 @@ const Home = (props) => {
 
     setLoading(true);
 
-    setTimeout(() => 
-      axios
-        .post(
-          "/search",
-          { term: search },
-          {
-            headers: {
-              "X-CSRF-TOKEN": token,
-              Accept: "application/json",
-            },
-          }
-        )
-        .then(({ data }) => setSuggestions(data))
-        .catch(() => setError(true))
-        .finally(() => setLoading(false)),
-      500)
-    }, [search]);
+    setTimeout(
+      () =>
+        axios
+          .post(
+            "/search",
+            { term: search },
+            {
+              headers: {
+                "X-CSRF-TOKEN": token,
+                Accept: "application/json",
+              },
+            }
+          )
+          .then(({ data }) => setSuggestions(data))
+          .catch(() => setError(true))
+          .finally(() => setLoading(false)),
+      500
+    );
+  }, [search]);
 
   let onChange = (event, { newValue: term, method }) => {
     if (method === "type") setSearch(term);
@@ -68,11 +65,11 @@ const Home = (props) => {
   const inputProps = {
     placeholder: "Start typing...",
     value: search,
-    onChange: onChange,
+    onChange,
   };
 
   return (
-    <div className={classNames({loading, error})}>
+    <div className={classNames({ loading, error })}>
       <Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={({ value }) => setSearch(value)}
@@ -80,9 +77,9 @@ const Home = (props) => {
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={inputProps}
-        onSuggestionSelected={(event, { suggestion }) => {
-          location.href = `http://0.0.0.0:3000/books/${suggestion.id}`;
-        }}
+        onSuggestionSelected={(event, { suggestion }) =>
+          history.push(getSuggestionPath(suggestion))
+        }
       />
     </div>
   );
