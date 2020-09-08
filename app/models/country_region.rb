@@ -1,14 +1,12 @@
 # == Schema Information
 #
-# Table name: authors
+# Table name: country_regions
 #
 #  id         :bigint           not null, primary key
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-FactoryBot.define do
-  factory :author do
-    name { Faker::Name.name }
-  end
+class CountryRegion < ApplicationRecord
+  has_many :cities
 end

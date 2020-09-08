@@ -16,8 +16,8 @@ module SearchService
         },
         highlight: {
           fields: {
-            name:  { type: 'plain' },
-            title: { type: 'plain' }
+            name:  { boundary_scanner: 'word', type: 'plain' },
+            title: { boundary_scanner: 'word', type: 'plain' }
           }
         }
       }

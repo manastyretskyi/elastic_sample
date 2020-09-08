@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: authors
+# Table name: country_regions
 #
 #  id         :bigint           not null, primary key
 #  name       :string
@@ -8,7 +8,7 @@
 #  updated_at :datetime         not null
 #
 FactoryBot.define do
-  factory :author do
-    name { Faker::Name.name }
+  factory :country_region do
+    name { Faker::Address.state }
   end
 end

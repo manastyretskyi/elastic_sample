@@ -16,6 +16,7 @@ gem 'csv', require: false
 # gem 'image_processing', '~> 1.2'
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'will_paginate', '~> 3.1.0'
 
 gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: 'master'
 gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: 'master'
@@ -44,6 +45,8 @@ group :development do
   gem 'capistrano-rails', '~> 1.4'
   gem 'capistrano-passenger', '~> 0.2.0'
   gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
+
+  gem 'annotate'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

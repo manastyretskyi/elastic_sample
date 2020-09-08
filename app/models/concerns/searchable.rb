@@ -12,35 +12,42 @@ module Searchable
       analysis: {
         analyzer: {
           ngram_analizer_titles: {
-            tokenizer: 'ngram_tokenizer',
+            tokenizer: 'custom_tokenizer',
             filter: [
               'lowercase',
               'my_ascii_folding',
               'classic',
               'kstem',
-              'word_delimiter'
+              'word_delimiter',
+              'ngram_filter',
+              'stop'
             ]
           },
           ngram_analizer_names: {
-            tokenizer: 'ngram_tokenizer',
+            tokenizer: 'custom_tokenizer',
             filter: [
               'lowercase',
-              'my_ascii_folding'
+              'my_ascii_folding',
+              'ngram_filter',
+              'stop'
             ]
           }
         },
         tokenizer: {
-          ngram_tokenizer: {
-            type:        'edge_ngram',
-            min_gram:    1,
-            max_gram:    10,
-            token_chars: ['letter']
+          custom_tokenizer: {
+            type: "classic"
           }
         },
         filter: {
           my_ascii_folding: {
             type: "asciifolding",
             preserve_original: true
+          },
+          ngram_filter: {
+            type:        'edge_ngram',
+            min_gram:    2,
+            max_gram:    10,
+            token_chars: ['letter']
           }
         }
       }
